@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class Board : MonoBehaviour
+{
+    [SerializeField] GameObject backgroundTile;
+    [SerializeField] int width;
+    [SerializeField] int height;
+    private backgroundTile[,] allTiles;
+    void Start()
+    {
+        allTiles = new backgroundTile[width, height];
+        SetupAllTiles();
+    }
+    void SetupAllTiles()
+    {
+        for(int i = 0; i < width; i++)
+        {
+            for(int j = 0; j < height; j++)
+            {
+                Vector2 tempPosition = new Vector2(i, j);;
+                GameObject BackgrounTileInstance = Instantiate(backgroundTile, tempPosition, Quaternion.identity)
+                 as GameObject;
+                BackgrounTileInstance.transform.parent = this.transform;
+                BackgrounTileInstance.name = "(" + i + "," + j + ")";
+            }
+        }
+    }
+}

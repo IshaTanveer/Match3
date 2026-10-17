@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "TouchInput",
+            "id": "96733ff1-97a2-4529-bc18-a2657ada08bf",
+            "actions": [
+                {
+                    "name": "Swipe",
+                    "type": "PassThrough",
+                    "id": "8d6c9a45-91ee-4e98-b7d7-49fbe555af39",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": []
+}

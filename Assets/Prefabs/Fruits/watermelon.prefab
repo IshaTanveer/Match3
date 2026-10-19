@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6554626458284610994}
   - component: {fileID: 651541077312660870}
   - component: {fileID: 1556215232314860226}
-  - component: {fileID: -9118922958785254602}
+  - component: {fileID: 4733975993277108045}
   m_Layer: 0
   m_Name: watermelon
-  m_TagString: Untagged
+  m_TagString: Watermelon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 69828683
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d9f85a51f9bb7614bb21dfcc93126c59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,7 +128,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
---- !u!114 &-9118922958785254602
+--- !u!114 &4733975993277108045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,3 +141,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fruit
   swipeAngle: 0
+  column: 0
+  row: 0

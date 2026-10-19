@@ -1,4 +1,12 @@
 {
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "on",
+        "strings": "on"
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.parameterHints.enabled": true,
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,

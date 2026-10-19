@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6588785772145858028}
   - component: {fileID: 2960859701768444426}
   - component: {fileID: 6847375110177315736}
-  - component: {fileID: 8588044784602091886}
+  - component: {fileID: 680956262466306768}
   m_Layer: 0
   m_Name: apple
-  m_TagString: Untagged
+  m_TagString: Apple
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 69828683
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a415f02f02b8420459860f0dd7d2265b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,7 +128,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
---- !u!114 &8588044784602091886
+--- !u!114 &680956262466306768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,3 +141,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fruit
   swipeAngle: 0
+  column: 0
+  row: 0

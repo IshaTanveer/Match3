@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -896652049
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3eb6b44e03de46d40b3d5419b25b9bc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.53333336}
@@ -103,10 +103,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b4c36244afd354aa3005f118118d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::backgroundTile
-  fruits:
-  - {fileID: 7570337408075289573, guid: 3c3654855faf5444ebcd09338266eae0, type: 3}
-  - {fileID: 7502020326402227517, guid: 76580f0d517924c4b995e03a08f9c65a, type: 3}
-  - {fileID: 1748637695090070666, guid: 3934b56384776274fa7604a3f0ad285d, type: 3}
-  - {fileID: 365144994753787054, guid: 63b3eeabe2675614d8d284626ddc8b1b, type: 3}
-  - {fileID: 1539458230499959266, guid: 8fb1fce9cd6534f48a5334616a752568, type: 3}
-  - {fileID: 6668874494994427003, guid: b5dec76020070cf408a745987bfdd7dc, type: 3}

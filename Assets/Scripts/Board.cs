@@ -59,21 +59,13 @@ public class Board : MonoBehaviour
         {
             GameObject fruitBelow = AllFruits[i, j-1];
             GameObject fruitBelow2 = AllFruits[i, j-2];
-            if(SameFruit(fruit, fruitBelow) && SameFruit(fruit, fruitBelow2))
-            {
-                return true;
-                ///i dont want this bruh , Gaurds cease this fruit
-            }
+            if(SameFruit(fruit, fruitBelow) && SameFruit(fruit, fruitBelow2)) return true;
         }
         if(i >= 2)
         {
             GameObject leftFruit = AllFruits[i-1, j];
             GameObject leftFruit2 = AllFruits[i-2, j];
-            if(SameFruit(fruit, leftFruit) && SameFruit(fruit, leftFruit2))
-            {
-                return true;
-                ///i dont want this bruh  ,Gaurds cease this fruit
-            }
+            if(SameFruit(fruit, leftFruit) && SameFruit(fruit, leftFruit2)) return true;
         }
         return false;
     }

@@ -143,3 +143,6 @@ MonoBehaviour:
   swipeAngle: 0
   column: 0
   row: 0
+  isMatched: 0
+  fruits: []
+  moveSpeed: 15

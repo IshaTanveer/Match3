@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fruit : MonoBehaviour
@@ -16,17 +13,18 @@ public class Fruit : MonoBehaviour
     private Board board;
     int targetx, targety;
     Vector2 tempPosition;
-    int MatchFound = 0;
     //Match Var
     [Header("Match Varaibles")]
-    bool isMatched = false;
+    public bool isMatched = false;
+    [SerializeField] private GameObject[] fruits;
+    [SerializeField] float moveSpeed;
     private void Start() {
         board = FindFirstObjectByType<Board>();
-        targetx = (int)transform.position.x;
-        targety = (int)transform.position.y;
+        //targetx = (int)transform.position.x;
+        //targety = (int)transform.position.y;
 
-        column = targetx;
-        row = targety;
+        //column = targetx;
+        //row = targety;
     }
     void Update()
     {  
@@ -36,7 +34,7 @@ public class Fruit : MonoBehaviour
         tempPosition = new Vector2(targetx, targety);
         if(Mathf.Abs(targetx - transform.position.x) > .1 || Mathf.Abs(targety - transform.position.y) > .1)
         {
-            transform.position = Vector2.Lerp(transform.position, tempPosition, 0.4f);
+            transform.position = Vector2.Lerp(transform.position, tempPosition, moveSpeed * Time.deltaTime);
             //move towards target 
         }
         else
@@ -47,9 +45,11 @@ public class Fruit : MonoBehaviour
     }
 
     private void OnMouseDown() {
+        if(board.isResolving) return;
         firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
     }
     private void OnMouseUp() {
+        if(board.isResolving) return;
         finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if(Mathf.Abs(finalTouchPosition.y - firstTouchPosition.y) > .1 || Mathf.Abs(finalTouchPosition.x - firstTouchPosition.x) > .1)
         {
@@ -64,89 +64,12 @@ public class Fruit : MonoBehaviour
         otherfruit = null; 
         MoveFruits(); 
         if(otherfruit == null) return;
-        board.StartCoroutine(CheckForMatch());
+        board.StartCheck(this);
     }
-    IEnumerator CheckForMatch()
+    public void SwapBack()
     {
-        yield return new WaitForSeconds(0.5f);
-        if (!FindAllMatches())
-        {
-            ChangeSwipeAngle();
-            MoveFruits();
-        }
-
-        while(FindAllMatches()){
-            FindMatchedFruitsToDestroy();
-            collapseColumns();
-            yield return new WaitForSeconds(0.5f);
-        }
-        //if (isMatched || otherfruit.GetComponent<Fruit>().isMatched)//gotta check both cause either migh tbe making a match
-        //{
-            //Destroy this and all other thats been matched
-            //use something better than too much destroying
-            
-        //}
-        foreach (GameObject fruit in board.AllFruits)
-        {
-            if(fruit != null) fruit.GetComponent<Fruit>().isMatched = false;
-        }  
-    }
-
-    private bool FindAllMatches()
-    {
-        MatchFound = 0;
-        foreach (GameObject fruit in board.AllFruits)
-        {
-            if (fruit != null) {
-                fruit.GetComponent<Fruit>().FindMatches();
-                if(fruit.GetComponent<Fruit>().isMatched) MatchFound++;
-            }
-        }
-        if(MatchFound == 0) return false;
-        else return true;
-    }
-
-    private void collapseColumns()
-    {
-        for(int i = 0; i < board.width; i++)
-        {
-            int emptyCount = 0;
-            for (int j = 0; j < board.height; j++)
-            {
-                if(board.AllFruits[i, j] == null)
-                {
-                    emptyCount++;
-                }
-                else if (emptyCount > 0)
-                {
-                    GameObject fruit = board.AllFruits[i, j];
-                    fruit.GetComponent<Fruit>().row -= emptyCount;
-                    board.AllFruits[i, j - emptyCount] = fruit;
-                    board.AllFruits[i, j] = null;
-                }
-            }
-        }
-    }
-
-    void FindMatchedFruitsToDestroy()
-    {
-        for(int i = 0; i < board.width; i++)
-        {
-            for (int j = 0; j < board.height; j++)
-            {
-                DestroyMatchedFruits(i, j);
-            }
-        }
-    }
-
-    private void DestroyMatchedFruits(int column, int row)
-    {
-        if(board.AllFruits[column, row] == null) return;
-        if(board.AllFruits[column, row].GetComponent<Fruit>().isMatched)
-        {
-            Destroy(board.AllFruits[column, row]); //use object pooling here!!!
-            board.AllFruits[column, row] = null;
-        }
+        ChangeSwipeAngle();
+        MoveFruits();
     }
 
     private void ChangeSwipeAngle()
@@ -196,7 +119,7 @@ public class Fruit : MonoBehaviour
             board.AllFruits[column, row + 1] = otherfruit;
         }
     }
-    private void FindMatches()
+    public void FindMatches()
     {
         if(column > 0 && column < board.width - 1)
         {

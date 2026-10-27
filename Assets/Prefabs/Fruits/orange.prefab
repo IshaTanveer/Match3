@@ -146,3 +146,4 @@ MonoBehaviour:
   isMatched: 0
   fruits: []
   moveSpeed: 15
+  particleColor: {r: 1, g: 0.62458384, b: 0.033018887, a: 1}

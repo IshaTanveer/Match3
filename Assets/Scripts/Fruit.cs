@@ -18,6 +18,7 @@ public class Fruit : MonoBehaviour
     public bool isMatched = false;
     [SerializeField] private GameObject[] fruits;
     [SerializeField] float moveSpeed;
+    [SerializeField] public Color particleColor;
     private void Start() {
         board = FindFirstObjectByType<Board>();
         //targetx = (int)transform.position.x;
@@ -119,7 +120,7 @@ public class Fruit : MonoBehaviour
             board.AllFruits[column, row + 1] = otherfruit;
         }
     }
-    public void FindMatches()
+    /*public void FindMatches()
     {
         if(column > 0 && column < board.width - 1)
         {
@@ -145,12 +146,5 @@ public class Fruit : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void MakeIsMatchedTrue(GameObject NextObject, GameObject PrevObject)
-    {
-        NextObject.GetComponent<Fruit>().isMatched = true;
-        PrevObject.GetComponent<Fruit>().isMatched = true;
-        isMatched = true;
-    }
+    }*/
 }

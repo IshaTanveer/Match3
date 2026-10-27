@@ -18,8 +18,11 @@ public class Board : MonoBehaviour
     int MatchFound = 0;
     public bool isResolving;
     [SerializeField] int offset;
+    MatchFinder matchFinder;
+    [SerializeField] ParticleSystem particles;
     void Start()
     {
+        matchFinder = FindFirstObjectByType<MatchFinder>();
         AllFruits = new GameObject[width, height];
         allTiles = new backgroundTile[width, height];
         SetupAllTiles();
@@ -90,15 +93,16 @@ public class Board : MonoBehaviour
     IEnumerator CheckForMatch(Fruit swappedFruit)
     {
         yield return new WaitForSeconds(0.5f);
-        if (!FindAllMatches())
+        if (!matchFinder.FindAllMatches())
         {
             swappedFruit.SwapBack();
         }
 
-        while(FindAllMatches()){
+        while(matchFinder.FindAllMatches()){
+            Debug.Log("Matches this pass: " + matchFinder.currentMatches.Count);
             FindMatchedFruitsToDestroy();
             collapseColumns();
-            //yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);
             yield return StartCoroutine(FillBoard());
         }
         foreach (GameObject fruit in AllFruits)
@@ -106,20 +110,6 @@ public class Board : MonoBehaviour
             if(fruit != null) fruit.GetComponent<Fruit>().isMatched = false;
         }  
         isResolving = false;
-    }
-
-    private bool FindAllMatches()
-    {
-        MatchFound = 0;
-        foreach (GameObject fruit in AllFruits)
-        {
-            if (fruit != null) {
-                fruit.GetComponent<Fruit>().FindMatches();
-                if(fruit.GetComponent<Fruit>().isMatched) MatchFound++;
-            }
-        }
-        if(MatchFound == 0) return false;
-        else return true;
     }
     private void collapseColumns()
     {
@@ -146,10 +136,7 @@ public class Board : MonoBehaviour
     {
         for(int i = 0; i < width; i++)
         {
-            for (int j = 0; j < height; j++)
-            {
-                DestroyMatchedFruits(i, j);
-            }
+            for (int j = 0; j < height; j++) DestroyMatchedFruits(i, j);
         }
     }
 
@@ -158,10 +145,25 @@ public class Board : MonoBehaviour
         if(AllFruits[column, row] == null) return;
         if(AllFruits[column, row].GetComponent<Fruit>().isMatched)
         {
+            if(matchFinder.currentMatches.Contains(AllFruits[column, row])) {
+                matchFinder.currentMatches.Remove(AllFruits[column, row]);
+            }
+            //GameObject particlesObject = Instantiate(particles, AllFruits[column, row].transform.position, Quaternion.identity);
+            //Debug.Log("Spawned effect at " + particlesObject.transform.position);
+            PlayEffect(AllFruits[column, row].transform.position, AllFruits[column, row].GetComponent<Fruit>().particleColor);
             Destroy(AllFruits[column, row]); //use object pooling here!!!
             AllFruits[column, row] = null;
         }
     }
+    void PlayEffect(Vector3 position, Color color)
+{
+    var emitParams = new ParticleSystem.EmitParams();
+    emitParams.position = position;
+    emitParams.startColor = color;
+    Debug.Log("Emit color: " + color);
+    emitParams.applyShapeToPosition = true;   // keeps your Shape module's spread
+    particles.Emit(emitParams, 15);           // 15 = particles per fruit
+}
     void RefillBoard()
     {
         for (int i = 0; i < width; i++)
